@@ -1,0 +1,29 @@
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        List<List<String>> mList = new LinkedList<>();
+        if(strs.length==0) return mList;
+        HashMap<String, List<String>> map = new HashMap<>();
+        for(int i =0; i <strs.length; i++)
+        {
+            char[] ch = strs[i].toCharArray();
+            Arrays.sort(ch);
+            String s = String.copyValueOf(ch);
+            if(!map.containsKey(s))
+            {
+                List<String> subList = new LinkedList();
+                subList.add(strs[i]);
+                map.put(s, subList);
+            }
+            else{
+                List<String> subList = map.get(s);
+                subList.add(strs[i]);
+                map.replace(s, subList);
+            }  
+        }
+        for(String s : map.keySet())
+        {
+            mList.add(map.get(s));
+        }
+        return mList;
+    }
+}
