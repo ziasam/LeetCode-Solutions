@@ -1,0 +1,15 @@
+class Solution {
+    public int climbStairs(int n) {
+        int i = 1;
+        int j = 1;
+        int sum =0;
+        if(n == 1) return 1;
+        for(int k =1; k<n; k++)
+        {
+            sum = i +j;
+            j = i;
+            i =sum;
+        }
+        return sum;
+    }
+}
