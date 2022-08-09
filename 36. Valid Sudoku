@@ -1,0 +1,88 @@
+** First approach 
+class Solution {
+    public boolean isValidSudoku(char[][] board) {
+        int i =0; 
+        int j =0;
+        while(i<9 && j<9)
+        {
+            HashSet<Character> h1 = new HashSet<>();
+            HashSet<Character> h2 = new HashSet<>();
+            int p = 0;
+            while(p<9)
+            {
+                if(board[i][p] != '.')
+                {
+                    if(!h1.contains(board[i][p]))
+                    {
+                        h1.add(board[i][p]);
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                p++;
+            }
+            p = 0;
+            while(p<9)
+            {
+                if(board[p][j] != '.')
+                {
+                    if(!h2.contains(board[p][j]))
+                    {
+                        h2.add(board[p][j]);
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                p++;
+            }
+            i++;
+            j++;
+        }
+        HashSet<String> h3 = new HashSet<>();
+        i = 0;
+        while(i<9)
+        {
+            j =0;
+            while(j<9)
+            {
+                if(board[i][j]!='.')
+                {
+                    if(!h3.contains(board[i][j]+"-"+i/3+"-"+j/3))
+                    {
+                        h3.add(board[i][j]+"-"+i/3+"-"+j/3);
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                j++;
+            }
+            i++;
+        }
+        return true;
+    }
+}
+
+** Second Approach
+class Solution {
+    public boolean isValidSudoku(char[][] board) {
+        HashSet<String> h1 = new HashSet<>();
+        for(int i =0;i<9; i++)
+        {
+            for(int j = 0; j<9; j++)
+            {
+                if(board[i][j] != '.')
+                {
+                    if(!h1.add(board[i][j] + "row" + i) || !h1.add(board[i][j] + "col" + j) || !h1.add(board[i][j] + "-" + i/3 + "-" + j/3))
+                        return false;
+                }
+            }
+        }
+        return true;
+    }
+}
