@@ -1,0 +1,60 @@
+class Solution {
+    public boolean canConstruct(String ransomNote, String magazine) {
+        int r = ransomNote.length();
+        int m = magazine.length();
+        if(m<r || r == 0) return false;
+        HashMap<Character, Integer> map = new HashMap<>();
+        HashMap<Character, Integer> map1 = new HashMap<>();
+        int i =0;
+        int j =0;
+        while(i<r || j<m)
+        {
+            if(i<r)
+            {
+                if(map.containsKey(ransomNote.charAt(i)))
+                {
+                    int k = map.get(ransomNote.charAt(i));
+                    k++;
+                    map.replace(ransomNote.charAt(i), k);
+                }
+                else
+                {
+                    map.put(ransomNote.charAt(i), 1);
+                }
+            }
+            if(j<m)
+            {
+                if(map1.containsKey(magazine.charAt(j)))
+                {
+                    int k = map1.get(magazine.charAt(j));
+                    k++;
+                    map1.replace(magazine.charAt(j), k);
+                }
+                else
+                {
+                    map1.put(magazine.charAt(j), 1);
+                }
+            }
+            i++;
+            j++;
+        }
+        
+        for(char ch : map.keySet())
+        {
+            if(map1.containsKey(ch))
+            {
+                int rchNum= map.get(ch);
+                int mchNum = map1.get(ch);
+                if(rchNum>mchNum)
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+}
