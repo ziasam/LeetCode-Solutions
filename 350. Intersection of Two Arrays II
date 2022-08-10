@@ -1,0 +1,68 @@
+class Solution {
+    public int[] intersect(int[] nums1, int[] nums2) {
+        int l1 = nums1.length;
+        int l2 = nums2.length;
+        int k =0;
+        HashMap<Integer, Integer> map1 = new HashMap<>();
+        HashMap<Integer, Integer> map = new  HashMap<>();
+        if(l1<l2)
+        {
+            for(int j =0; j<l2; j++){
+                if(!map1.containsKey(nums2[j])){
+                    map1.put(nums2[j], 1);
+                }
+                else{
+                    int q = map1.get(nums2[j]);
+                    q++;
+                    map1.put(nums2[j], q);
+                }
+            }
+            for(int i =0; i<l1; i++)
+            {
+                
+                if(map1.containsKey(nums1[i]) && map1.get(nums1[i]) > 0)
+                {
+                    map.put(k, nums1[i]);
+                    k++;
+                    int temp = map1.get(nums1[i]);
+                    temp--;
+                    map1.put(nums1[i], temp);
+                }
+            }
+        }
+        else
+        {
+            for(int j =0; j<l1; j++){
+                if(!map1.containsKey(nums1[j])){
+                    map1.put(nums1[j], 1);
+                }
+                else{
+                    int q = map1.get(nums1[j]);
+                    q++;
+                    map1.put(nums1[j], q);
+                }
+            }
+            for(int i =0; i<l2; i++)
+            {
+                
+                if(map1.containsKey(nums2[i]) && map1.get(nums2[i]) > 0)
+                {
+                    map.put(k, nums2[i]);
+                    k++;
+                    int temp = map1.get(nums2[i]);
+                    temp--;
+                    map1.put(nums2[i], temp);
+                }
+            }
+        }  
+        
+        int[] a = new int[map.size()];
+        
+        for(int i : map.keySet())
+        {
+            a[i] = map.get(i);
+        }
+        
+        return a;
+    }
+}
