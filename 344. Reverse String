@@ -1,0 +1,21 @@
+** Recursive
+class Solution {
+    public void reverseString(char[] s) {
+        int l = s.length-1;
+        reverse(s, 0, l);
+    }
+    
+    public void reverse(char[] s, int index, int l)
+    {
+        if(index <= l/2)
+        {
+            char c = s[index];
+            s[index] = s[l-index];
+            s[l-index] = c;
+        }
+        else{
+            return;
+        }
+        reverse(s, index+1, l);
+    }
+}
