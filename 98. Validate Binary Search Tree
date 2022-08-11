@@ -1,0 +1,24 @@
+class Solution {
+    public boolean isValidBST(TreeNode root) {
+        if(root == null) return false;
+        Stack<Integer> stack = new Stack<>();
+        inOrder(stack, root);
+        int i = stack.pop();
+        while(!stack.isEmpty())
+        {
+            int k = stack.pop();
+            if(k >= i) return false;
+            i=k;
+        }
+        return true;        
+    }
+    
+    public void inOrder(Stack<Integer> stack, TreeNode root)
+    {
+        if(root == null) return;
+        
+        inOrder(stack, root.left);
+        stack.push(root.val);
+        inOrder(stack, root.right);
+    }
+}
