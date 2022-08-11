@@ -1,0 +1,27 @@
+** 
+class Solution {
+    public ListNode swapPairs(ListNode head) {
+        if(head == null) return null;
+        if(head.next == null) return head;
+        ListNode res = head.next;
+        swap(head, null);
+        return res;
+        
+    }
+    
+    public void swap(ListNode head, ListNode res)
+    {
+        if(head== null || head.next == null) return;
+        
+        ListNode newHead = head.next;
+        ListNode thirdNode = newHead.next;
+        newHead.next = head;
+        head.next = thirdNode;
+        if(res != null)
+        {
+            res.next = newHead;
+        }
+        res = head;
+        swap(thirdNode, res);
+    }
+}
