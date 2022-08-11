@@ -1,0 +1,20 @@
+class Solution {
+    public boolean isValid(String s) {
+        char[] c = s.toCharArray();
+        if(c.length%2 != 0) return false;
+        Stack<Character> stack = new Stack<>();
+        int count = 0;
+        for(int i = 0; i< c.length; i++)
+        {
+            if(c[i] == '(' || c[i] == '{' || c[i] == '['){
+                stack.push(c[i]);
+                count++;
+            }
+            else if(!stack.isEmpty() && c[i] == ')' && stack.peek() == '(') stack.pop();
+            else if(!stack.isEmpty() && c[i] == '}' && stack.peek() == '{') stack.pop();
+            else if(!stack.isEmpty() && c[i] == ']' && stack.peek() == '[') stack.pop();
+            if( i == c.length-1  && count != c.length/2) return false;
+        }
+        return stack.isEmpty();
+    }
+}
