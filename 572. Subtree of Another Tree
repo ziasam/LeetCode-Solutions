@@ -1,0 +1,43 @@
+class Solution {
+    public boolean isSubtree(TreeNode root, TreeNode subRoot) {
+        TreeNode curr = root;
+        Stack<TreeNode> stack = new Stack<>();
+        Stack<TreeNode> stack2 = new Stack<>();
+        while(curr!= null || !stack.isEmpty())
+        {
+            while(curr!=null)
+            {
+                if(curr.val == subRoot.val)
+                {
+                    stack2.push(curr);
+                }
+                stack.push(curr);
+                curr= curr.left;
+            }
+            curr = stack.pop();
+            curr = curr.right;
+        }
+        List<Integer> l2 = new ArrayList<>();
+        inOrder(subRoot, l2);
+        
+        while(!stack2.isEmpty())
+        {
+            List<Integer> l1 = new ArrayList<>();
+            inOrder(stack2.pop(), l1);
+            if(l1.equals(l2)) return true;
+            
+        }
+        
+        return false;
+    }
+    
+    public void inOrder(TreeNode head, List<Integer> list)
+    {
+        if(head == null) return;
+        
+        inOrder(head.left, list);
+        list.add(head.val);
+        inOrder(head.right, list);
+        
+    }
+}
