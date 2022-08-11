@@ -1,0 +1,17 @@
+class Solution {
+    public TreeNode sortedArrayToBST(int[] nums) {
+        int l = nums.length-1;
+        TreeNode root = constructBST(nums, 0, l);
+        return root;
+    }
+    
+    public TreeNode constructBST(int[] nums, int leftIndex, int rightIndex)
+    {
+        if(leftIndex>rightIndex) return null;
+        int midPoint = (leftIndex+rightIndex)/2;
+        TreeNode n = new TreeNode(nums[midPoint]);
+        n.left = constructBST(nums, leftIndex, midPoint-1);
+        n.right = constructBST(nums, midPoint+1, rightIndex);
+        return n;
+    }
+}
