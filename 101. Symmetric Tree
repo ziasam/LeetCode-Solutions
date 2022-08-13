@@ -1,0 +1,49 @@
+class Solution {
+    public boolean isSymmetric(TreeNode root) {
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        int k = 0;
+        while(!q.isEmpty())
+        {
+            int level = q.size();
+            List<Integer> list = new ArrayList<>();
+            for(int i =0; i<level; i++)
+            {
+                if(q.peek().left != null) 
+                {
+                    q.offer(q.peek().left);
+                    list.add(q.peek().left.val);
+                    k++;
+                }
+                else
+                {
+                    list.add(0);
+                }
+                
+                if(q.peek().right != null) 
+                {
+                    q.offer(q.peek().right);
+                    list.add(q.peek().right.val);
+                    k++;
+                }
+                else
+                {
+                    list.add(0);
+                }
+                q.poll();
+            }
+            if(k%2 == 0)
+            {
+                int j =0;
+                int length = list.size()-1;
+                while(j<(length-j))
+                {
+                    if(list.get(j) != list.get(length-j)) return false;
+                    j++;
+                }
+            }
+            else return false;
+        }
+        return true;
+    }
+}
