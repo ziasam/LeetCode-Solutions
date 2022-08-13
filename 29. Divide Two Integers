@@ -1,0 +1,17 @@
+class Solution {
+    public int divide(int dividend, int divisor) {
+    if(dividend==Integer.MIN_VALUE && divisor==-1)return Integer.MAX_VALUE;
+    if(divisor==1)return dividend;
+
+    int count=0;
+    int i = Math.abs(dividend);
+    int j = Math.abs(divisor);
+    while((i-j)>=0){
+        if(count==Integer.MAX_VALUE)return Integer.MAX_VALUE;
+        else count++;
+        i = i-j;
+    }
+    if((divisor<0 && dividend>=0) || (divisor>=0 && dividend<0)) return count*(-1);
+    return count;
+    }
+}
