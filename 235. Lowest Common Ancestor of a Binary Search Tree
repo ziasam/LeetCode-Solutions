@@ -1,0 +1,49 @@
+class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        TreeNode curr = root;
+        Stack<TreeNode> stack1 = new Stack<>();
+        Stack<TreeNode> stack2 = new Stack<>();
+        List<TreeNode> list1 =  new ArrayList<>();
+        List<TreeNode> list2 =  new ArrayList<>();
+        pathOfNode(root, p, stack1, new ArrayList<>());
+        pathOfNode(root, q, stack2, new ArrayList<>());
+
+        while(!stack1.isEmpty())
+        {
+            list1.add(stack1.pop());
+        }
+        
+        while(!stack2.isEmpty())
+        {
+            list2.add(stack2.pop());
+        }
+        
+        for(int k =list1.size()-1; k>=0; k--)
+        {
+            if(list2.contains(list1.get(k))) return list1.get(k);
+        }
+        
+        return curr;
+    }
+    
+    
+    public void pathOfNode(TreeNode root, TreeNode n, Stack<TreeNode> stack, List<TreeNode> dummy_list)
+    {
+        if(root == null) return;
+        
+        if(root == n)
+        {
+            dummy_list.add(root);
+            for(int i = dummy_list.size()-1; i>=0; i--)
+            {
+                stack.push(dummy_list.get(i));
+            }
+            return;
+        }
+        
+        dummy_list.add(root);
+        pathOfNode(root.left, n, stack, dummy_list);
+        pathOfNode(root.right, n, stack, dummy_list);
+        dummy_list.remove(dummy_list.size()-1);
+    }
+}
