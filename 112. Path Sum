@@ -1,3 +1,4 @@
+** Iterative Approach
 class Solution {
     public boolean hasPathSum(TreeNode root, int targetSum) {
         if(root == null) return false;
@@ -28,5 +29,40 @@ class Solution {
             
         }
         return false;
+    }
+}
+
+** Recursive approach
+class Solution {
+    public boolean hasPathSum(TreeNode root, int targetSum) {
+        if(root == null) return false;
+        TreeNode curr = root;
+        Stack<Integer> stack = new Stack<>();
+        findPath(root, curr, stack, targetSum, new ArrayList<>());
+        if(!stack.isEmpty()) return true; 
+        return false;
+    }
+    
+    
+    public void findPath(TreeNode root, TreeNode curr, Stack<Integer> stack, int target, List<TreeNode> list)
+    {
+        if(root == null)
+        {
+            int sum = 0;
+            for(int i = list.size()-1; i>=0; i--)
+            {
+                sum = sum + list.get(i).val;
+            }
+            if(sum == target && curr.right == null && curr.left == null)
+            {
+                stack.push(1);
+            }
+            return;
+        }
+        
+        list.add(root);
+        findPath(root.left, root, stack, target, list);
+        findPath(root.right, root, stack, target, list);
+        list.remove(list.size()-1);
     }
 }
