@@ -1,3 +1,4 @@
+** O(n^2)
 class Solution {
     public String longestPalindrome(String s) {
         int start = 0;
@@ -25,5 +26,29 @@ class Solution {
         }
         
         return right-left-1;
+    }
+}
+
+** Brute force O(n^3)
+class Solution {
+    public String longestPalindrome(String s) {
+        int len = s.length();
+        String res = "";
+        for(int i = 0;i <len; i++)
+        {
+            for(int j=i+1; j<=len; j++)
+            {
+                String str = s.substring(i,j);
+                String str1 = "";
+                int k = str.length()-1;
+                while(k>=0)
+                {
+                    str1 = str1 + str.charAt(k);
+                    k--;
+                }
+                if(str.equals(str1) && str.length() > res.length()) res = str;
+            }
+        }
+        return res;
     }
 }
